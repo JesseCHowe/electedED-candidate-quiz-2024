@@ -188,3 +188,4 @@ import example from "$utils/example.js";
 * `translate.js`: Convenience function for transform translate css.
 * `urlParams.js`: Get and set url parameters.
 
+# electedED-candidate-quiz-2024
