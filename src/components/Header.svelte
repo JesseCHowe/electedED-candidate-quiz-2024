@@ -2,7 +2,7 @@
 	<a href="https://electeddc.org/">
 		<img
 			alt="logo"
-			src="https://electeddc.org/wp-content/uploads/2022/08/cropped-electED-Logo-1024x711.png"
+			src="https://electeddc.org/wp-content/uploads/2024/10/cropped-electED-Logo.png"
 		/>
 	</a>
 	<!-- <span>Candidate support quiz</span> -->

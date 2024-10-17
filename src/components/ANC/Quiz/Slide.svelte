@@ -59,7 +59,7 @@
 		font-family: sans-serif;
 	}
 	path {
-		fill: #c7871e;
+		fill: #88bcd2;
 	}
 	.category {
 		background: #fff;
@@ -85,7 +85,7 @@
 	}
 
 	.bottom {
-		background: #c7871e;
+		background: #88bcd2;
 		padding: 0 20px;
 		display: flex;
 		align-items: center;

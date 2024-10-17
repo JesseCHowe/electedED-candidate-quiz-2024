@@ -1,47 +1,36 @@
 <script>
 	import DetailedAnswers from "./DetailedAnswers.svelte";
-	import ward7Answers from "$data/candidate-answers.csv";
-	import ward8Answers from "$data/ward-8-candidate-answers.csv";
+	import ward7Answers from "$data/anc/ward-7-answers.csv";
+	import ward8Answers from "$data/anc/ward-8-answers.csv";
 	export let activeSlide;
 	export let questions;
 	export let ward;
 	import * as d3 from "d3";
 
 	const ward8Candidates = [
-		{
-			name: "Rahman Branch",
-			last: "Branch",
-			img: "rahman-branch.jpg"
-		},
-		{
-			name: "Salim Adofo",
-			last: "Adofo",
-			img: "salim-adofo.jpg"
-		},
-		{
-			name: "Trayon	White",
-			last: "White",
-			img: "trayon-white.jpg"
-		}
+		{ name: "Rev. Wendy Hamilton", last: "Hamilton" },
+		{ name: "Patrice Lancaster", last: "Lancaster" },
+		{ name: "Elizabeth Carter", last: "Carter" },
+		{ name: "Marcus	Hickman", last: "Hickman" },
+		{ name: "Scott Thach", last: "Thach" },
+		{ name: "Gregory White", last: "White" },
+		{ name: "Tom Donohue", last: "Donohue" },
+		{ name: "Commissioner Duane Moody", last: "Moody" },
+		{ name: "Deborah Wells", last: "Wells" },
+		{ name: "Tomora Redman", last: "Redman" }
 	];
+
 	const ward7Candidates = [
-		{ name: "Wendell Felder", last: "Felder", img: "wendell-felder.jpg" },
-		{ name: "Denise	Reed", last: "Reed", img: "denise-reed.jpg" },
-		{ name: "Ebony Payne", last: "Payne", img: "ebony-payne.jpg" },
-		{
-			name: "Villareal Johnson",
-			last: "Johnson",
-			img: "villareal-johnson.jpg"
-		},
-		{ name: "Kelvin Brown", last: "Brown", img: "kelvin-brown.jpg" },
-		{ name: "Roscoe Grant Jr.", last: "Grant Jr.", img: "roscoe-grant-jr.jpg" },
-		{ name: "Ebbon Allen", last: "Allen", img: "ebbon-allen.jpg" },
-		{ name: "Veda	Rasheed", last: "Rasheed", img: "veda-rasheed.jpg" },
-		{
-			name: "Eboni-Rose Thompson",
-			last: "Thompson",
-			img: "eboni-rose-thompson.jpg"
-		}
+		{ name: "Stanley Monickam", last: "Monickam" },
+		{ name: "Caprice Casson", last: "Casson" },
+		{ name: "Ashley Renee Ruff", last: "Ruff" },
+		{ name: "Carlos	Richardson", last: "Richardson" },
+		{ name: "Patricia Stamper", last: "Stamper" },
+		{ name: "Dev Myers", last: "Myers" },
+		{ name: "Patricia Williams", last: "Williams" },
+		{ name: "Kimory	Orendoff", last: "Orendoff" },
+		{ name: "Travis Swanson", last: "Swanson" },
+		{ name: "John Adams", last: "Adams" }
 	];
 
 	let candidates;
@@ -71,7 +60,7 @@
 				match = match + 1;
 			}
 		});
-		return d3.format(".0%")(+match / +questions.length);
+		return +match / +questions.length;
 	};
 
 	let targetSection;
@@ -89,23 +78,45 @@
 	<div class="container">
 		<div class="top">
 			<div>
-				<h3>Candidate matches</h3>
-				<span
-					>Click on a candidate's photo to get a detailed comparison of your
-					answers. All running candidates were sent a questionnaire. Those
-					candidates who replied are displayed below.</span
-				>
+				<div class="lead">
+					<h3>Candidate matches</h3>
+					<span
+						>Click on a candidate's photo to get a detailed comparison of your
+						answers. All running candidates were sent a questionnaire. Those
+						candidates who replied are displayed below.</span
+					>
+				</div>
+
 				<div class="results">
-					{#each candidates as candidate}
+					{#each candidates.sort((a, b) => {
+						return matchPct(a.last) > matchPct(b.last) ? -1 : 1;
+					}) as candidate}
 						<button
 							class="result"
 							on:click={() => onCandidateSelect(candidate)}
 						>
-							<div class="photo">
-								<img src="assets/candidates/{candidate.img}" alt="cat" />
-							</div>
+							<i class="plus">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="20px"
+									height="20px"
+									viewBox="0 0 24 24"
+									><path
+										fill="#fff"
+										d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4zm1 5q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"
+									/></svg
+								>
+							</i>
 							<span class="name">{candidate.name}</span>
-							<span class="match">{matchPct(candidate.last)}</span>
+							<span class="match"
+								>{d3.format(".0%")(matchPct(candidate.last))}</span
+							>
+							<div class="bar-container">
+								<div
+									class="bar"
+									style="width: {d3.format('.0%')(matchPct(candidate.last))}"
+								/>
+							</div>
 						</button>
 					{/each}
 				</div>
@@ -161,13 +172,16 @@
 		font-weight: bold;
 	}
 	* {
+		color: #000;
+	}
+	.lead > * {
 		color: #fff;
 	}
 	h3 {
 		margin: 0;
 	}
 	path {
-		fill: #c7871e;
+		fill: #88bcd2;
 	}
 	.placeholder {
 		height: 100vh;
@@ -178,7 +192,7 @@
 		margin: 40px auto;
 		max-width: fit-content;
 		display: block;
-		border: 1px dashed #fff;
+		border: 1px dashed #000;
 		padding: 20px;
 		border-radius: 5px;
 	}
@@ -211,28 +225,28 @@
 		max-width: 100%;
 	}
 	.bottom {
-		background: #c7871e;
+		background: #88bcd2;
 		padding: 0 10px;
 		display: flex;
 		align-items: center;
 	}
 	.results {
 		display: grid;
-		grid-template-columns: repeat(5, 1fr);
+		row-gap: 5px;
+		/* grid-template-columns: repeat(5, 1fr); */
 		column-gap: 0px;
-		row-gap: 0px;
 		align-items: flex-start;
 		margin: 10px auto;
 		width: 100%;
 	}
 	@media (max-width: 900px) {
 		.results {
-			grid-template-columns: repeat(4, 1fr);
+			/* grid-template-columns: repeat(4, 1fr); */
 		}
 	}
 	@media (max-width: 700px) {
 		.results {
-			grid-template-columns: repeat(3, 1fr);
+			/* grid-template-columns: repeat(3, 1fr); */
 		}
 	}
 	.match {
@@ -241,8 +255,11 @@
 		font-weight: bold;
 	}
 	.result {
-		display: block;
-		text-align: center;
+		display: grid;
+		grid-template-columns: auto 1fr 80px 2fr;
+		column-gap: 5px;
+		align-items: center;
+		background: #88bcd2;
 	}
 	.result .photo:hover {
 		border: 1px solid #000;
@@ -281,5 +298,23 @@
 		text-align: right;
 	}
 	.name {
+		text-align: left;
+	}
+	.bar-container {
+		position: relative;
+		background: none;
+		width: 100%;
+		height: 8px;
+	}
+	.bar {
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		background-color: #fff;
+		border-radius: 2px;
+	}
+	.plus svg path {
+		fill: #fff;
 	}
 </style>

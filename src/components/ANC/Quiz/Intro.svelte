@@ -13,7 +13,7 @@
 					>Ward 8 quiz</button
 				>
 			</div>
-			<h1>Find your Ward {ward} candidate match</h1>
+			<h1>Find your Ward {ward} Advisory Neighborhood Commissioner match</h1>
 			<p>
 				Compare your stances on issues impacting education, environment, crime
 				and safety, and economic justice with those of the candidates running
@@ -117,7 +117,7 @@
 		margin: 0 auto;
 	}
 	.bottom {
-		background: #c7871e;
+		background: #88bcd2;
 		z-index: 100;
 		display: flex;
 		/* justify-content: center; */
@@ -136,7 +136,7 @@
 		font-family: sans-serif;
 		line-height: 1.2;
 		margin: 0;
-		font-size: 60px;
+		font-size: 40px;
 		color: #efefef;
 		font-weight: bold;
 		text-align: center;
@@ -165,6 +165,6 @@
 		z-index: 100;
 	}
 	path {
-		fill: #c7871e;
+		fill: #88bcd2;
 	}
 </style>

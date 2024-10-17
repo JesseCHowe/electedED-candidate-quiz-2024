@@ -3,8 +3,8 @@
 	import Intro from "./Quiz/Intro.svelte";
 	import Answers from "./Quiz/Answers.svelte";
 	import Progress from "./Quiz/Progress.svelte";
-	import Form from "./Form.svelte";
-	import copy from "$data/copy.json";
+	import Form from "$components/Form.svelte";
+	import copy from "$data/copy-anc.json";
 	$: questions = copy.questions.map((d) => {
 		return {
 			...d,
@@ -16,7 +16,7 @@
 </script>
 
 <div class="bg">
-	<img src="assets/bg-image.png" />
+	<img src="../assets/bg-image.png" />
 </div>
 <section>
 	{#if activeSlide === 0}
